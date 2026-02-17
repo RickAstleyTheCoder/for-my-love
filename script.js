@@ -67,6 +67,9 @@ function resetAndGoHome() {
         display.innerText = "Tap the otters for a blessing...";
     }
     
+    // ADD THIS LINE:
+    document.getElementById('finale').scrollTop = 0;
+    
     // 3. Go back to the home section
     nextPage('home');
 };
