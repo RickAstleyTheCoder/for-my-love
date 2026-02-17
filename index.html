@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Our Graceful Journey</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Lato:wght@300&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div id="app-container">
+        <section id="home" class="active">
+            <div class="content">
+                <div class="duck-icon">✨ 🦢 ✨</div> <h1>A Cord of Three Strands</h1>
+                <p class="scripture">"Though one may be overpowered, two can defend themselves. A cord of three strands is not quickly broken." - Eccl 4:12</p>
+                <button onclick="nextPage('love-notes')">Enter Our Garden</button>
+            </div>
+        </section>
+
+        <section id="love-notes">
+            <div class="content">
+                <h2>Reasons I Praise God for You</h2>
+                <div id="note-display" class="fade-in">Tap the duck for a blessing...</div>
+                <div class="duck-button" onclick="showNewNote()">🦆</div>
+                <button class="back-btn" onclick="nextPage('home')">Back</button>
+            </div>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
