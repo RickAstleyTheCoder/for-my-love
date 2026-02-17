@@ -3,65 +3,48 @@
  * This script handles the "app-like" transitions and the interactive elements.
  */
 
-// 1. Navigation Logic
-// This makes the screens slide/fade without the browser refreshing.
+// 1. Navigation Controller
 function nextPage(pageId) {
-    // Select all sections in the app
-    const sections = document.querySelectorAll('section');
-    
-    // Remove the 'active' class from everyone to hide them
-    sections.forEach(section => {
-        section.classList.remove('active');
+    document.querySelectorAll('section').forEach(sec => {
+        sec.classList.remove('active');
     });
-
-    // Find the section we want to show and make it 'active'
-    const targetSection = document.getElementById(pageId);
-    if (targetSection) {
-        targetSection.classList.add('active');
-        
-        // Optional: Scroll to the top of the new section
-        window.scrollTo(0, 0);
-    }
+    document.getElementById(pageId).classList.add('active');
 }
 
-// 2. The Content Library (Personalize these!)
-const loveNotes = [
-    "I thank God every day for the way you reflect His kindness. 🦦",
-    "Like otters holding hands, I’m so glad we are drifting through life together.",
-    "'He who finds a wife finds a good thing and obtains favor from the Lord.' — Proverbs 18:22",
-    "You are my favorite blessing and my best friend. 🦆✨",
-    "I love how our 'cord of three strands' gets stronger every day.",
-    "May our love always be a testimony of His grace and faithfulness.",
-    "Watching you grow in your faith is the most beautiful thing I've ever seen.",
-    "I'm 'otterly' in love with you, today and every day!"
+// 2. Your Content List
+const blessings = [
+    "I thank God every day for the way you reflect His kindness. ✨",
+    "Like otters holding hands, I’m so glad we are drifting through life together. 🦦❤️🦦",
+    "You are my favorite answered prayer, Clarisse.",
+    "'...I found him whom my soul loves...' - Song of Songs 3:4",
+    "I love our 'otterly' amazing life in Christ.",
+    "Watching you walk with the Lord is my greatest inspiration.",
+    "Thank you for being my partner in faith and my best friend.",
+    "'He who finds a wife finds a good thing And obtains favor from Yahweh.' - Prov 18:22",
+    "Thank you for being the Border Collie to my Malinois—always loyal and bright.",
+    "May our love always be a testimony of His grace. ✨"
 ];
 
-// 3. Interactive Blessing Generator
-let lastIndex = -1;
+let currentNoteIndex = 0;
 
+// 3. Interaction Logic
 function showNewNote() {
-    const displayElement = document.getElementById('note-display');
+    const display = document.getElementById('note-display');
     
-    // Step A: Fade the text out slightly for a smooth transition
-    displayElement.style.opacity = 0;
+    // If we've shown all notes, go to the final collage
+    if (currentNoteIndex >= blessings.length) {
+        nextPage('finale');
+        return;
+    }
+
+    // Fade out text, change it, then fade back in
+    display.style.opacity = 0;
     
-    // Wait 400ms (matching our CSS transition) before changing the text
     setTimeout(() => {
-        let randomIndex;
-        
-        // Ensure we don't show the same note twice in a row
-        do {
-            randomIndex = Math.floor(Math.random() * loveNotes.length);
-        } while (randomIndex === lastIndex);
-        
-        lastIndex = randomIndex;
-        
-        // Update the text
-        displayElement.innerText = loveNotes[randomIndex];
-        
-        // Step B: Fade the text back in
-        displayElement.style.opacity = 1;
-    }, 400);
+        display.innerText = blessings[currentNoteIndex];
+        display.style.opacity = 1;
+        currentNoteIndex++;
+    }, 500);
 }
 
 // 4. Initial Setup
@@ -71,4 +54,19 @@ window.onload = () => {
     if(displayElement) {
         displayElement.innerText = "Tap the duck to see a blessing...";
     }
+}
+
+
+function resetAndGoHome() {
+    // 1. Reset the counter so the blessings start from the beginning
+    currentNoteIndex = 0;
+    
+    // 2. Reset the display text to the original prompt
+    const display = document.getElementById('note-display');
+    if (display) {
+        display.innerText = "Tap the otters for a blessing...";
+    }
+    
+    // 3. Go back to the home section
+    nextPage('home');
 };
